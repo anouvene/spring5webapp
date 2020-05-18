@@ -1,10 +1,9 @@
 package guru.springframework.spring5webapp.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Publisher {
@@ -19,6 +18,8 @@ public class Publisher {
     private String state;
     private String zip;
 
+    @ManyToMany(mappedBy = "publishers")
+    private Set<Book> books = new HashSet<>();
 
     public Publisher() { }
     public Publisher(String name, String addressLine1, String city, String state, String zip) {
@@ -75,6 +76,14 @@ public class Publisher {
 
     public void setZip(String zip) {
         this.zip = zip;
+    }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
     }
 
     @Override

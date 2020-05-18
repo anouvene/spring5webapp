@@ -31,28 +31,45 @@ public class BootStrapData implements CommandLineRunner {
 
         System.out.println("Started in Bootstrap");
 
+        // Authors and books
         Author eric = new Author("Eric", "Evans");
         Book ddd = new Book("Domain Driven Design", "123123");
         eric.getBooks().add(ddd);
         ddd.getAuthors().add(eric);
-
-        authorRepository.save(eric);
-        bookRepository.save(ddd);
+        this.authorRepository.save(eric);
+        this.bookRepository.save(ddd);
 
         Author rod = new Author("Rod", "Johnson");
         Book noEJB = new Book("J2EE Development without EJB", "3939459459");
         rod.getBooks().add(noEJB);
         noEJB.getAuthors().add(rod);
+        this.authorRepository.save(rod);
+        this.bookRepository.save(noEJB);
 
-        authorRepository.save(rod);
-        bookRepository.save(noEJB);
-
-        System.out.println("Number of Books: " + bookRepository.count());
-
-        Publisher hachetteLivre;
-        hachetteLivre = new Publisher("Hachette Livre", "58, rue Jean Bleuzen", "Vanves",
+        // Publishers and books
+        Publisher hachetteLivre = new Publisher("Hachette Livre", "58, rue Jean Bleuzen", "Vanves",
                 "Hauts-de-Seine", "92170");
+        Publisher flammarion = new Publisher("Ernest Flammarion", "87, quai Panhard-et-Levassor", "Paris",
+                "Île-de-France", "75647");
+
+        ddd.setPublisher(hachetteLivre);
+        noEJB.setPublisher(hachetteLivre);
+        hachetteLivre.getBooks().add(ddd);
+        hachetteLivre.getBooks().add(noEJB);
         this.publisherRepository.save(hachetteLivre);
-        System.out.println("Number of editors: " +  publisherRepository.count());
+
+        this.publisherRepository.save(flammarion);
+
+        System.out.println("Number of Books: " + this.bookRepository.count());
+        System.out.println("Number of editors: " +  this.publisherRepository.count());
+        System.out.println("The publisher " + hachetteLivre.getName() + " has: " + hachetteLivre.getBooks().size() + " books");
+
+        if ((flammarion.getBooks().size() > 0)) {
+            System.out.println("The publisher " + flammarion.getName() + " has: " + flammarion.getBooks().size() + " books");
+        } else {
+            System.out.println("The publisher " + flammarion.getName() + " has: " + 0 + " books");
+        }
+
+
     }
 }

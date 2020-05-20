@@ -6,19 +6,8 @@
 </head>
 <body>
 <h1>Author List</h1>
-
-<table>
-    <tr>
-        <th>ID</th>
-        <th>First Name</th>
-        <th>Last</th>
-    </tr>
-    <tr th:each="author : ${authors}">
-        <td th:text="${author.id}">123</td>
-        <td th:text="${author.firstName}">Joe</td>
-        <td th:text="${author.lastName}">Buck</td>
-    </tr>
-</table>
-
+    <ul th:each="author: ${authors}">
+        <li><i th:text="${author.id}"></i> - <strong th:text="${author.lastName}"></strong> <em th:text="${author.firstName}"></em></li>
+    </ul>
 </body>
 </html>
